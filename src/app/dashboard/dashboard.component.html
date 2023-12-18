@@ -1,6 +1,6 @@
+<!-- set as form instead of (change) event-->
+<input type="text" (change)="searchUsers($event)" />
 <div *ngIf="users$ | async as users">
   {{ users | json }}
 </div>
 <!-- TODO put the data on a table, and make pagination for it, with the search filter with the conditions on the instructions -->
-
-<!-- https://api.github.com/search/users?q=mojombo in:login  find for users example -->

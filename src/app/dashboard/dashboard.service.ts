@@ -14,4 +14,18 @@ export class DashboardService {
 
     return result;
   }
+
+  findUsers(username: string): Observable<User[]> {
+    // TODO create interface for set on the get<any> for the any, to hace the data mapped
+    //should be
+    /*
+    {total_count: number
+     incomplete_results: boolean,
+    items: User[]
+    } */
+    const result = this.http
+      .get<any>(`search/users?q=${username} in:login`)
+      .pipe(map((data) => data.items));
+    return result;
+  }
 }
