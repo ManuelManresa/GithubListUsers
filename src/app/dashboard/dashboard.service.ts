@@ -1,9 +1,17 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { User } from '../auth/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DashboardService {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  getAllUsers(): Observable<User[]> {
+    const result = this.http.get<any>('users').pipe(map((data) => data));
+
+    return result;
+  }
 }
