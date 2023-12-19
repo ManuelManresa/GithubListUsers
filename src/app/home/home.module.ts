@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
-import { AuthComponent } from './auth.component';
+import { HomeComponent } from './home.component';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forChild([{ path: '', component: AuthComponent }]),
+    RouterModule.forChild([{ path: '', component: HomeComponent }]),
   ],
+  providers: [],
 })
-export class AuthModule {}
+export class DashboardModule {}

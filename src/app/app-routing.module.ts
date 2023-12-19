@@ -10,17 +10,13 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+      import('./home/home.module').then((m) => m.DashboardModule),
   },
   //TODO Change for 404 error page
   {
     path: '**',
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      import('./home/home.module').then((m) => m.DashboardModule),
   },
 ];
 

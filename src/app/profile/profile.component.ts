@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
 import { Observable } from 'rxjs';
-import { User } from '../auth/user';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'profile',
