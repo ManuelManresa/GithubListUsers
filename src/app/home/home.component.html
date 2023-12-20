@@ -1,15 +1,16 @@
 <!-- set as form instead of (change) event-->
 <input type="text" [(ngModel)]="searchString" (change)="searchUsers()" />
 <!-- TODO put the data on a table, and make pagination for it, with the search filter with the conditions on the instructions -->
-
+<!-- loader -->
 <span *ngIf="loadingData"> Loading...</span>
+<!-- table -->
 <div class="container" *ngIf="(users$ | async)?.length && !loadingData">
   <h2>Users</h2>
   <ul class="responsive-table">
     <li class="table-header">
+      <div class="col col-4">Avatar</div>
       <div class="col col-2">Name</div>
       <div class="col col-3">Followers</div>
-      <div class="col col-4">Avatar Url</div>
     </li>
 
     <li
@@ -17,18 +18,20 @@
       *ngFor="let user of users$ | async"
       (click)="navigateToProfile(user.login)"
     >
-      <div class="col col-2" data-label="Name">{{ user.login }}</div>
-      <div class="col col-3" data-label="Followers">
-        {{ user.followers }}
-      </div>
       <div class="col col-4" data-label="Avatar">
         <img
           src="{{ user.avatar_url }}"
           alt="Avatar Url"
-          width="64"
-          height="64"
+          width="32"
+          height="32"
         />
+      </div>
+      <div class="col col-2" data-label="Name">{{ user.login }}</div>
+      <div class="col col-3" data-label="Followers">
+        {{ user.followers }}
       </div>
     </li>
   </ul>
+  <!-- pagination -->
+  <span>{{ totalPageNumbers }}</span>
 </div>

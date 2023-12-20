@@ -1,4 +1,77 @@
-<p>profile works!</p>
 <div *ngIf="user$ | async as user">
-  {{ user | json }}
+  <header>
+    <img
+      src="{{ user.avatar_url }}"
+      alt="Avatar Url"
+      width="128"
+      height="128"
+    />
+    <article>
+      <!-- Profile -->
+      <section>
+        User:
+        <span>
+          {{ user.login }}
+        </span>
+      </section>
+      <section>
+        Name:
+        <span>
+          {{ user.name }}
+        </span>
+      </section>
+      <section>
+        Location:
+        <span>
+          {{ user.location }}
+        </span>
+      </section>
+      <section>
+        Company:
+        <span>
+          {{ user.company }}
+        </span>
+      </section>
+      <section>
+        Creation Date:
+        <span>
+          {{ momentFormatter(user.created_at, "YYYY-MM-DD") }}
+        </span>
+      </section>
+      <section>
+        <span>
+          {{ user.bio }}
+        </span>
+      </section>
+      <section>
+        Followers:
+        <span>
+          {{ user.followers }}
+        </span>
+      </section>
+      <section>
+        Following:
+        <span>
+          {{ user.following }}
+        </span>
+      </section>
+      <section>
+        Blog:
+        <span>
+          {{ user.blog }}
+        </span>
+      </section>
+      <section>
+        Twitter:
+        <span> &#64;{{ user.twitter_username }} </span>
+      </section>
+      <section>
+        Type:
+        <span>
+          {{ user.type }}
+        </span>
+      </section>
+    </article>
+  </header>
+  <!-- commits section for modal -->
 </div>

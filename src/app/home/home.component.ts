@@ -1,5 +1,5 @@
-import { BehaviorSubject, concat, exhaustMap, map, take } from 'rxjs';
-import { DashboardService } from './home.service';
+import { BehaviorSubject, catchError, of } from 'rxjs';
+import { HomeService } from './home.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../interfaces/user';
 import { ProfileService } from '../profile/profile.service';
@@ -16,8 +16,10 @@ export class HomeComponent implements OnInit {
   >(null);
   public searchString: string = '';
   public loadingData: boolean = false;
+  public currentPageNumber = 1;
+  public totalPageNumbers = 1;
   constructor(
-    private dashboardService: DashboardService,
+    private homeService: HomeService,
     public profileService: ProfileService,
     private router: Router
   ) {}
@@ -28,28 +30,20 @@ export class HomeComponent implements OnInit {
     //when filter does not pass instead of dont do nothing, try to show a spinner laoding and then if not data match just show a meesage of no data to shown
     if (this.searchString.length > 4 && !this.searchString.includes('flowww')) {
       this.loadingData = true;
-      const usersDataComplete: User[] = [];
-      this.dashboardService
+
+      this.homeService
         .findUsers(this.searchString)
         .pipe(
-          take(1),
-          map((users) => {
-            this.loadingData = Boolean(users.length) ?? false;
-
-            return users.map((user) => user.url);
-          }),
-          exhaustMap((usersUrls) => {
-            const usersDataComplete = usersUrls.map((url) =>
-              this.profileService.getUser(url).pipe(take(1))
-            );
-
-            return concat(...usersDataComplete);
+          catchError((error) => {
+            this.loadingData = false;
+            return of([]);
           })
         )
         .subscribe((users) => {
-          usersDataComplete.push(users);
-          this.users$?.next(usersDataComplete);
           this.loadingData = false;
+          this.totalPageNumbers = Math.ceil(users.length / 10);
+          this.currentPageNumber = 1;
+          this.users$.next(users);
         });
     } else if (this.searchString.includes('flowww')) {
       window.alert('Not allowed this parameter on search');

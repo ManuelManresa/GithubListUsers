@@ -4,7 +4,7 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable, take, exhaustMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { enviroment } from '../enviroments/enviroment';
 
@@ -23,10 +23,9 @@ export class AuthTokenInterceptor implements HttpInterceptor {
       url: req.url.includes('https://api.github.com/')
         ? req.url
         : `${this.URL_API}${req.url}`,
-      setHeaders:
-        req.url.includes('search/users') || req.url.includes('users/')
-          ? { Authorization: `${this.TOKEN}` }
-          : {},
+      setHeaders: req.url.includes('search/users')
+        ? { Authorization: `${this.TOKEN}` }
+        : {},
     });
 
     return next.handle(modifiedRequest);
