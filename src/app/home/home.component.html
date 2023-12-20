@@ -3,7 +3,7 @@
 <!-- TODO put the data on a table, and make pagination for it, with the search filter with the conditions on the instructions -->
 
 <span *ngIf="loadingData"> Loading...</span>
-<div class="container" *ngIf="(users$ | async) && !loadingData">
+<div class="container" *ngIf="(users$ | async)?.length && !loadingData">
   <h2>Users</h2>
   <ul class="responsive-table">
     <li class="table-header">

@@ -6,7 +6,7 @@ import { ProfileService } from '../profile/profile.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'dashboard',
+  selector: 'home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -52,15 +52,16 @@ export class HomeComponent implements OnInit {
           this.loadingData = false;
         });
     } else if (this.searchString.includes('flowww')) {
+      window.alert('Not allowed this parameter on search');
       this.users$.next([]);
     }
   }
   public navigateToProfile(url: string) {
     const newUrl = this.router.serializeUrl(
       this.router.createUrlTree(['/profile'], {
-        queryParams: { url },
+        queryParams: { user: url },
       })
     );
-    window.open(url, '_blank');
+    window.open(newUrl, '_blank');
   }
 }
