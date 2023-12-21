@@ -33,7 +33,7 @@
     </li>
   </ul>
   <!-- pagination -->
-  <button>
+  <button (click)="searchUsers(0)">
     <span>&#60;&#60;</span>
   </button>
   <button (click)="searchUsers(currentPageNumber - 1)">
@@ -62,11 +62,15 @@
       <span>...</span>
     </button>
   </div>
-  <button>
+  <button (click)="searchUsers(currentPageNumber + 1)">
     <span>&#62;</span>
   </button>
 
-  <button>
+  <button
+    (click)="
+      searchUsers(totalPageNumbers); nextPageGroup = totalPageNumbers / 5
+    "
+  >
     <span>&#62;&#62;</span>
   </button>
 </div>
