@@ -23,9 +23,12 @@ export class AuthTokenInterceptor implements HttpInterceptor {
       url: req.url.includes('https://api.github.com/')
         ? req.url
         : `${this.URL_API}${req.url}`,
-      setHeaders: req.url.includes('search/users')
-        ? { Authorization: `${this.TOKEN}` }
-        : {},
+      setHeaders:
+        req.url.includes('search/users') ||
+        req.url.includes('users') ||
+        req.url.includes('repos')
+          ? { Authorization: `${this.TOKEN}` }
+          : {},
     });
 
     return next.handle(modifiedRequest);

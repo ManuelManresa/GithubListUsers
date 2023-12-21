@@ -74,9 +74,13 @@
     </article>
   </header>
   <!-- repos section -->
-  <div></div>
+  <div *ngIf="userRepos$ | async as repos">
+    {{ repos | json }}
+  </div>
 
   <!-- commits section for modal -->
 
-  <div></div>
+  <div *ngIf="userGeneralCommits$ | async as commits">
+    {{ commits | json }}
+  </div>
 </div>

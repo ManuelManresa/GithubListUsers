@@ -1,105 +1,152 @@
-body {
-  font-family: "lato", sans-serif;
-}
-.container {
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 10px;
-  padding-right: 10px;
-}
+.glu-home {
+  background: linear-gradient(0deg, #6466d77f 0%, #13caa281 100%);
 
-h2 {
-  font-size: 26px;
-  margin: 20px 0;
+  font-family: sans-serif;
+}
+.glu-home__title {
+  font-size: 140px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: white;
+  letter-spacing: 2px;
   text-align: center;
-  small {
-    font-size: 0.5em;
-  }
+  margin-bottom: 40px;
+}
+.glu-home__container {
+  display: flex;
+  max-width: 1440px;
+  padding: 80px;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* From https://css.glass */
+}
+.glu-home__search {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 10px;
+}
+.glu-home__search-input {
+  font-family: sans-serif;
+  background-color: white;
+  border-radius: 44px;
+  color: gray;
+  padding: 17px;
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid gainsboro;
+}
+.glu-home__list-container {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 600px;
+
+  width: 100%;
+}
+.glu-home__table {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+.glu-home__table-head {
+  display: flex;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.glu-home__table-head-row {
+  display: grid;
+  border-radius: 14px;
+  width: 100%;
+  padding: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  color: white;
+  background-color: rgb(105, 181, 219);
+}
+.glu-home__user-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 100%;
+  list-style-type: none;
+}
+.glu-home__user-row {
+  background-color: white;
+  border-radius: 14px;
+  padding: 5px 20px;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+}
+.glu-home__user-row:nth-child(even) {
+  background-color: rgb(242, 253, 255);
+  transition: 0.5;
+}
+.glu-home__user-avatar img {
+  border-radius: 100%;
+}
+.glu-home__pagination {
+  display: flex;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+.glu-home__pagination-buttons {
+  display: flex;
+  width: fit-content;
+}
+.glu-home__pagination button {
+  padding: 10px 12px;
+  background-color: white;
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.glu-home__pagination button:hover {
+  background-color: rgb(105, 181, 219);
+  color: white;
+  transition-property: background-color, color;
+  transition: 0.5s;
+}
+.glu-home__pagination button:last-of-type {
+  border-radius: 0 100% 100% 0;
+}
+.glu-home__pagination button:first-of-type {
+  border-radius: 100% 0 0 100%;
+}
+.glu-home__pagination button.checked {
+  background-color: rgb(105, 181, 219);
+  color: white;
 }
 
-.responsive-table {
-  li {
-    border-radius: 3px;
-    padding: 25px 30px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
+@media (max-width: 801px) {
+  .glu-home__container {
+    padding: 30px;
   }
-  .table-header {
-    background-color: #95a5a6;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+  .glu-home__search {
+    width: 80%;
   }
-  .table-row {
-    background-color: #ffffff;
-    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
-  }
-
-  .table-row:hover {
-    background-color: #e8e8e8;
-    box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.3);
-  }
-  .col-1 {
-    flex-basis: 10%;
-  }
-  .col-2 {
-    flex-basis: 40%;
-  }
-  .col-3 {
-    flex-basis: 25%;
-  }
-  .col-4 {
-    flex-basis: 25%;
-  }
-
-  .avatar {
-    width: 64;
-    height: 64;
-  }
-
-  @media all and (max-width: 767px) {
-    .table-header {
-      display: none;
-    }
-
-    li {
-      display: block;
-    }
-    .col {
-      flex-basis: 100%;
-    }
-    .col {
-      display: flex;
-      padding: 10px 0;
-      &:before {
-        color: #6c7a89;
-        padding-right: 10px;
-        content: attr(data-label);
-        flex-basis: 50%;
-        text-align: right;
-      }
-    }
+  .glu-home__search-input {
+    max-width: initial;
   }
 }
-
-.loader {
-  width: 48px;
-  height: 48px;
-  border: 5px solid #fff;
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.glu-home__user-row:hover {
+  cursor: pointer;
+  transform: translateY(-5px) translateX(5px);
+  box-shadow: -7px 6px 4px rgba(176, 176, 176, 0.6);
+  transition: 0.5s;
 }

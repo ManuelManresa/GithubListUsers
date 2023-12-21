@@ -13,10 +13,16 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthTokenInterceptor } from '../interceptors/tokenBearer.interceptor';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ProfileComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    ProfileComponent,
+    SpinnerComponent,
+  ],
   imports: [
     BrowserModule,
     CommonModule,

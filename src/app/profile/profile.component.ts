@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
-import { Observable } from 'rxjs';
+import { Observable, map, take, tap } from 'rxjs';
 import { User } from '../../interfaces/user';
 import { Router } from '@angular/router';
 import moment from 'moment-mini';
+import {
+  GeneralCommitsUser,
+  RepositoriesUser,
+} from '../../interfaces/responsesInterfaces';
 
 @Component({
   selector: 'profile',
@@ -13,21 +17,30 @@ import moment from 'moment-mini';
 export class ProfileComponent implements OnInit {
   public user$: Observable<User> | null = null;
 
+  public userRepos$: Observable<RepositoriesUser[]> | null = null;
+  public userGeneralCommits$: Observable<GeneralCommitsUser[]> | null = null;
+
   constructor(private profileService: ProfileService, private router: Router) {}
   ngOnInit(): void {
     const username = this.router.url.split('?user=')[1];
     this.user$ = this.profileService.getUser(`users/${username}`);
+
+    this.user$.pipe(take(1)).subscribe((user) => {
+      this.userRepos$ = this.profileService.getRepos(user.repos_url);
+
+      this.userRepos$.pipe(take(1)).subscribe((user) => {
+        this.userGeneralCommits$ = this.profileService.getCommits(
+          user[0].commits_url
+        );
+
+        return this.userGeneralCommits$;
+      });
+
+      return this.userRepos$;
+    });
   }
 
   public momentFormatter(date: string | undefined, format: string) {
     return moment(date).format(format);
-  }
-
-  public getRepos() {
-    // TODO example url to get repos https://api.github.com/users/${user}/repos
-  }
-
-  public getCommits() {
-    // TODO exaple URL to get commits https://api.github.com/repos/${user}/${repo.name}/commits
   }
 }

@@ -1,76 +1,118 @@
 <!-- set as form instead of (change) event-->
-<input type="text" [(ngModel)]="searchString" (change)="searchUsers()" />
-<!-- TODO put the data on a table, and make pagination for it, with the search filter with the conditions on the instructions -->
-<!-- loader -->
-<span *ngIf="loadingData" class="loader"> </span>
-<!-- table -->
-<div class="container" *ngIf="(users$ | async)?.length && !loadingData">
-  <h2>Users</h2>
-  <ul class="responsive-table">
-    <li class="table-header">
-      <div class="col col-4">Avatar</div>
-      <div class="col col-2">Name</div>
-      <div class="col col-3">Followers</div>
-    </li>
+<div class="glu-home">
+  <div class="glu-home__container">
+    <h1 class="glu-home__title">GitHub userlist</h1>
 
-    <li
-      class="table-row"
-      *ngFor="let user of users$ | async"
-      (click)="navigateToProfile(user.login)"
-    >
-      <div class="col col-4" data-label="Avatar">
-        <img
-          src="{{ user.avatar_url }}"
-          alt="Avatar Url"
-          width="32"
-          height="32"
-        />
-      </div>
-      <div class="col col-2" data-label="Name">{{ user.login }}</div>
-      <div class="col col-3" data-label="Followers">
-        {{ user.followers }}
-      </div>
-    </li>
-  </ul>
-  <!-- pagination -->
-  <button (click)="searchUsers(0)">
-    <span>&#60;&#60;</span>
-  </button>
-  <button (click)="searchUsers(currentPageNumber - 1)">
-    <span>&#60;</span>
-  </button>
-  <button (click)="nextPageGroup = nextPageGroup - 1" *ngIf="nextPageGroup > 1">
-    <span>...</span>
-  </button>
-  <div *ngFor="let pages of getNumberArray(totalPageNumbers); let i = index">
-    <button
-      (click)="searchUsers(i + 1)"
-      *ngIf="
-        i + 1 >= currentPageNumber + 5 * (nextPageGroup - 1) &&
-        i + 1 < currentPageNumber + 5 * nextPageGroup
-      "
-    >
-      <span>
-        {{ i + 1 }}
-      </span>
-    </button>
+    <div class="glu-home__search">
+      <input
+        class="glu-home__search-input"
+        type="text"
+        [(ngModel)]="searchString"
+        (change)="searchUsers()"
+      />
+    </div>
+    <!-- TODO put the data on a table, and make pagination for it, with the search filter with the conditions on the instructions -->
+    <!-- loader -->
+    <app-spinner *ngIf="loadingData" class="loader"> </app-spinner>
+    <!-- table -->
 
-    <button
-      (click)="nextPageGroup = nextPageGroup + 1"
-      *ngIf="i + 1 == currentPageNumber + 5 * nextPageGroup"
+    <div
+      class="glu-home__list-container"
+      *ngIf="(users$ | async)?.length && !loadingData"
     >
-      <span>...</span>
-    </button>
+      <div class="glu-home__table">
+        <div class="glu-home__table-head">
+          <div class="glu-home__table-head-row">
+            <div>Avatar</div>
+            <div>Name</div>
+            <div>Followers</div>
+          </div>
+        </div>
+
+        <ul class="glu-home__user-list">
+          <li
+            class="glu-home__user-row"
+            *ngFor="let user of users$ | async"
+            (click)="navigateToProfile(user.login)"
+          >
+            <div
+              class="glu-home__column glu-home__user-avatar"
+              data-label="Avatar"
+            >
+              <img
+                src="{{ user.avatar_url }}"
+                alt="Avatar Url"
+                width="32"
+                height="32"
+              />
+            </div>
+            <div class="glu-home__column glu-home__user-name" data-label="Name">
+              {{ user.login }}
+            </div>
+            <div
+              class="glu-home__column glu-home__user-followers"
+              data-label="Followers"
+            >
+              {{ user.followers }}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="glu-home__pagination">
+        <div class="glu-home__pagination-buttons">
+          <button (click)="searchUsers(0)">
+            <span>&#60;&#60;</span>
+          </button>
+          <button (click)="searchUsers(currentPageNumber - 1)">
+            <span>&#60;</span>
+          </button>
+          <button
+            (click)="nextPageGroup = nextPageGroup - 1"
+            *ngIf="nextPageGroup > 1"
+          >
+            <span>...</span>
+          </button>
+          <ng-container
+            *ngFor="
+              let pages of getNumberArray(totalPageNumbers);
+              let i = index
+            "
+          >
+            <button
+              [ngClass]="{ checked: currentPageNumber === i + 1 }"
+              (click)="searchUsers(i + 1)"
+              *ngIf="
+                i + 1 >= currentPageNumber + 5 * (nextPageGroup - 1) &&
+                i + 1 < currentPageNumber + 5 * nextPageGroup
+              "
+            >
+              <span>
+                {{ i + 1 }}
+              </span>
+            </button>
+
+            <button
+              (click)="nextPageGroup = nextPageGroup + 1"
+              *ngIf="i + 1 == currentPageNumber + 5 * nextPageGroup"
+            >
+              <span>...</span>
+            </button>
+          </ng-container>
+          <button (click)="searchUsers(currentPageNumber + 1)">
+            <span>&#62;</span>
+          </button>
+
+          <button
+            (click)="
+              searchUsers(totalPageNumbers);
+              nextPageGroup = totalPageNumbers / 5
+            "
+          >
+            <span>&#62;&#62;</span>
+          </button>
+        </div>
+        <!-- pagination -->
+      </div>
+    </div>
   </div>
-  <button (click)="searchUsers(currentPageNumber + 1)">
-    <span>&#62;</span>
-  </button>
-
-  <button
-    (click)="
-      searchUsers(totalPageNumbers); nextPageGroup = totalPageNumbers / 5
-    "
-  >
-    <span>&#62;&#62;</span>
-  </button>
 </div>
