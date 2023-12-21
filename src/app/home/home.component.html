@@ -2,7 +2,7 @@
 <input type="text" [(ngModel)]="searchString" (change)="searchUsers()" />
 <!-- TODO put the data on a table, and make pagination for it, with the search filter with the conditions on the instructions -->
 <!-- loader -->
-<span *ngIf="loadingData"> Loading...</span>
+<span *ngIf="loadingData" class="loader"> </span>
 <!-- table -->
 <div class="container" *ngIf="(users$ | async)?.length && !loadingData">
   <h2>Users</h2>
@@ -38,6 +38,9 @@
   </button>
   <button (click)="searchUsers(currentPageNumber - 1)">
     <span>&#60;</span>
+  </button>
+  <button (click)="nextPageGroup = nextPageGroup - 1" *ngIf="nextPageGroup > 1">
+    <span>...</span>
   </button>
   <div *ngFor="let pages of getNumberArray(totalPageNumbers); let i = index">
     <button
