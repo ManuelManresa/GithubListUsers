@@ -14,9 +14,14 @@ export class HomeService {
     private profileService: ProfileService
   ) {}
 
-  findUsers(username: string, pageNumber: number = 1): Observable<User[]> {
+  findUsers(username: string, pageNumber: number = 0): Observable<FindUsers> {
     const usersDataComplete: User[] = [];
 
+    const result: FindUsers = {
+      items: [],
+      incomplete_results: false,
+      total_count: 0,
+    };
     return this.http
       .get<FindUsers>(
         `search/users?q=${username}+in:login&per_page=10&page=${pageNumber}`
@@ -29,9 +34,11 @@ export class HomeService {
 
             throw new Error('No data found');
           }
-          return data.items;
+          result.incomplete_results = data.incomplete_results;
+          result.total_count = data.total_count;
+          return data;
         }),
-        map((users) => users.map((user) => user.url)),
+        map((users) => users.items.map((user) => user.url)),
         exhaustMap((usersUrls) => {
           const usersDataComplete = usersUrls.map((url) =>
             this.profileService.getUser(url).pipe(take(1))
@@ -41,10 +48,9 @@ export class HomeService {
         }),
         map((users) => {
           usersDataComplete.push(users);
-
-          return usersDataComplete;
-        }),
-        map((usersMappeds) => usersMappeds)
+          result.items = usersDataComplete;
+          return result;
+        })
       );
   }
 }

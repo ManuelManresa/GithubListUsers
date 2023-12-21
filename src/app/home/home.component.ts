@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../interfaces/user';
 import { ProfileService } from '../profile/profile.service';
 import { Router } from '@angular/router';
+import { FindUsers } from '../../interfaces/responsesInterfaces';
 
 @Component({
   selector: 'home',
@@ -16,8 +17,9 @@ export class HomeComponent implements OnInit {
   >(null);
   public searchString: string = '';
   public loadingData: boolean = false;
-  public currentPageNumber = 1;
-  public totalPageNumbers = 1;
+  public currentPageNumber: number = 1;
+  public totalPageNumbers: number = 1;
+  public nextPageGroup: number = 1;
   constructor(
     private homeService: HomeService,
     public profileService: ProfileService,
@@ -26,24 +28,30 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public searchUsers() {
+  public searchUsers(page?: number) {
     //when filter does not pass instead of dont do nothing, try to show a spinner laoding and then if not data match just show a meesage of no data to shown
-    if (this.searchString.length > 4 && !this.searchString.includes('flowww')) {
+    if (
+      this.searchString.length > 4 &&
+      !this.searchString.includes('flowww') &&
+      page != this.currentPageNumber
+    ) {
       this.loadingData = true;
 
       this.homeService
-        .findUsers(this.searchString)
+        .findUsers(this.searchString, page)
         .pipe(
           catchError((error) => {
             this.loadingData = false;
             return of([]);
           })
         )
-        .subscribe((users) => {
+        .subscribe((users: any) => {
           this.loadingData = false;
-          this.totalPageNumbers = Math.ceil(users.length / 10);
-          this.currentPageNumber = 1;
-          this.users$.next(users);
+          this.totalPageNumbers = page
+            ? this.totalPageNumbers
+            : Math.ceil(users.total_count / 10);
+          this.currentPageNumber = page ? this.currentPageNumber : 1;
+          this.users$.next(users.items);
         });
     } else if (this.searchString.includes('flowww')) {
       window.alert('Not allowed this parameter on search');
@@ -57,5 +65,9 @@ export class HomeComponent implements OnInit {
       })
     );
     window.open(newUrl, '_blank');
+  }
+
+  public getNumberArray(length: number): number[] {
+    return new Array(length);
   }
 }
