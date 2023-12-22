@@ -15,7 +15,7 @@
   background-color: #555;
 }
 
-.modal_profile_container {
+.modal-profile-container {
   width: 500px;
   margin: 0 auto;
   top: 50%;
@@ -30,18 +30,18 @@
   background-color: #f1f1f1;
 }
 
-.modal_commit_item span {
-  white-space: nowrap; /* Prevents the text from wrapping */
-  overflow: hidden; /* Hides the overflow content */
-  text-overflow: ellipsis; /* Adds an ellipsis (...) at the end */
+.modal-commit-item span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   width: 150px;
   color: #13caa2;
 }
-.modal_commit_item span b {
+.modal-commit-item span b {
   color: black;
 }
 
-.modal_banner {
+.modal-banner {
   position: absolute;
   z-index: 1;
   width: 97%;
@@ -50,12 +50,12 @@
   background: linear-gradient(0deg, #6466d77f 0%, #13caa281 100%);
   height: 150px;
 }
-.modal_user_image {
+.modal-user-image {
   z-index: 200;
   border: 3px solid white;
 }
 
-.modal_profile_header {
+.modal-profile-header {
   margin-top: 68px;
   z-index: 990 !important;
   display: flex;
@@ -64,10 +64,9 @@
   align-items: center;
   padding: 10px;
   gap: 20px;
-  /* border-bottom: 1px solid #ccc; */
 }
 
-.modal_followers {
+.modal-followers {
   display: flex;
   gap: 20px;
   font-size: 12;
@@ -76,17 +75,17 @@
   margin-top: 10px;
 }
 
-.modal_followers span {
+.modal-followers span {
   font-size: 20px;
   font-weight: bold;
 }
-.modal_profile_name_container {
+.modal-profile-name-container {
   align-items: center;
   display: flex;
   gap: 8px;
   flex-direction: column;
 }
-.modal_profile_header_user_name {
+.modal-profile-header-user-name {
   font-size: 40px;
   font-weight: bold;
   white-space: nowrap;
@@ -94,71 +93,71 @@
   text-overflow: ellipsis;
   width: 80%;
 }
-.modal_profile_header_name {
+.modal-profile-header-name {
   font-size: 12;
 }
 
-.modal_user_image {
+.modal-user-image {
   margin: auto;
   border-radius: 50%;
 }
 
-.modal_companies {
+.modal-companies {
   display: flex;
   gap: 20px;
 }
-.modal_profile_card {
+.modal-profile-card {
   display: flex;
-  align-items: center; /* Align items vertically in the center */
+  align-items: center;
   border: 1px solid #ccc;
   padding: 10px;
-  max-width: 600px; /* Adjust the maximum width as needed */
-  background-color: #fff; /* White background */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.modal_profile_card img {
-  width: 80px; /* Adjust the image width as needed */
-  height: 80px; /* Adjust the image height as needed */
-  border-radius: 50%; /* Make the image round */
-  margin-right: 20px; /* Add some spacing between the image and the card */
+.modal-profile-card img {
+  width: 80px;
+
+  border-radius: 50%;
+  margin-right: 20px;
 }
-.modal_profile_card_item {
+.modal-profile-card-item {
   display: flex;
   flex-direction: column;
 }
 
-.modal_profile_card_item span {
-  margin-top: 5px; /* Ajusta el espacio entre la etiqueta y el valor */
+.modal-profile-card-item span {
+  margin-top: 5px;
 }
 
-.modal_tabs_container {
+.modal-tabs-container {
   display: flex;
   justify-content: start;
   margin-top: 20px;
   gap: 20px;
   border-bottom: 1px solid #ccc;
 }
-.modal_tab {
+.modal-tab {
   padding: 12px;
   cursor: pointer;
 }
-.modal_tab:hover {
+.modal-tab:hover {
   border-bottom: 2px solid #13caa29b;
   color: #13caa29b;
   font-weight: bold;
 }
-.modal_tab.active {
+.modal-tab.active {
   border-bottom: 2px solid #13caa2;
   color: #13caa2;
   font-weight: bold;
 }
 
-.modal_profile_header_name {
+.modal-profile-header-name {
   color: gray;
 }
-.modal_repos_content,
-.modal_commits-content {
+.modal-repos-content,
+.modal-commits-content {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -167,9 +166,8 @@
   overflow-y: scroll;
 }
 
-.modal_repos_item,
-.modal_commit_item {
-  /* Add styles for each commit item */
+.modal-repos-item,
+.modal-commit-item {
   padding: 8px;
   cursor: pointer;
   display: flex;
@@ -178,32 +176,32 @@
   justify-content: space-between;
 }
 
-.modal_repos_item:hover,
-.modal_commit_item:hover {
+.modal-repos-item:hover,
+.modal-commit-item:hover {
   background: #adadad3d;
 }
 
-.modal_commit_item a {
+.modal-commit-item a {
   color: #13caa2;
 }
-.modal_view_more_button {
+.modal-view-more-button {
   padding: 5px;
   border-radius: 4px;
   cursor: pointer;
   border: 1px solid #13caa2;
   color: #13caa2;
 }
-.modal_view_more_button:hover {
+.modal-view-more-button:hover {
   color: white;
   background-color: #13caa2;
 }
 
-.modal_commit_date {
+.modal-commit-date {
   color: gray;
   font-size: 12px;
 }
 @media only screen and (max-width: 600px) {
-  .modal_profile_container {
+  .modal-profile-container {
     width: 85vw;
     margin: 0 auto;
     top: 50%;
@@ -211,35 +209,35 @@
     max-height: 75vh;
     overflow: scroll;
   }
-  .modal_view_more_button {
+  .modal-view-more-button {
     padding: 4px;
     border-radius: 3px;
     font-size: 10px;
   }
 
-  .modal_banner {
+  .modal-banner {
     display: none;
   }
-  .modal_profile_header {
+  .modal-profile-header {
     margin-top: 0;
     gap: 5px;
   }
-  .modal_tabs_container {
+  .modal-tabs-container {
     margin-top: 0px;
   }
 
-  .modal_repos_item span,
-  .modal_commit_item span {
+  .modal-repos-item span,
+  .modal-commit-item span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 150px;
   }
-  .modal_repos_content,
-  .modal_commits-content {
+  .modal-repos-content,
+  .modal-commits-content {
     overflow-y: visible;
   }
-  .modal_profile_header_user_name {
+  .modal-profile-header-user-name {
     width: 40%;
   }
 }

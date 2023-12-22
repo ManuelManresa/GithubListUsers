@@ -9,15 +9,19 @@ import { AppComponent } from './app.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileModule } from './profile/profile.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { AuthTokenInterceptor } from '../interceptors/tokenBearer.interceptor';
+import { HttpRequestInterceptor } from '../interceptors/httpRequests.interceptor';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { NgIconsModule } from '@ng-icons/core';
-import { bootstrapTwitter, bootstrapBuilding } from '@ng-icons/bootstrap-icons';
-import { octPersonFill } from '@ng-icons/octicons';
-import { SplitPipe } from './split.pipe';
+import { bootstrapBuilding } from '@ng-icons/bootstrap-icons';
+import { octPersonFill, octLocation } from '@ng-icons/octicons';
+import { SplitPipe } from './pipes/split.pipe';
+import { FormatDatePipe } from './pipes/format-date.pipe';
+import { NotificationPopUpComponent } from './notification-pop-up/notification-pop-up.component';
+import { TableComponent } from './home/table/table.component';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,9 @@ import { SplitPipe } from './split.pipe';
     ProfileComponent,
     SpinnerComponent,
     SplitPipe,
+    FormatDatePipe,
+    NotificationPopUpComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,17 +41,18 @@ import { SplitPipe } from './split.pipe';
     ProfileModule,
     HttpClientModule,
     FormsModule,
+    HomeModule,
     NgIconsModule.withIcons({
-      bootstrapTwitter,
       octPersonFill,
       bootstrapBuilding,
+      octLocation,
     }),
   ],
   providers: [
     provideClientHydration(),
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthTokenInterceptor,
+      useClass: HttpRequestInterceptor,
       multi: true,
     },
   ],

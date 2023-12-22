@@ -9,14 +9,11 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () =>
-      import('./home/home.module').then((m) => m.DashboardModule),
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
-  //TODO Change for 404 error page
   {
     path: '**',
-    loadChildren: () =>
-      import('./home/home.module').then((m) => m.DashboardModule),
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
 ];
 

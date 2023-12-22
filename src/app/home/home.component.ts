@@ -3,13 +3,14 @@ import { HomeService } from './home.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../interfaces/user';
 import { ProfileService } from '../profile/profile.service';
+import { NotificationService } from '../notification-pop-up/notification.service';
 
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   public users$: BehaviorSubject<User[] | null> = new BehaviorSubject<
     User[] | null
   >(null);
@@ -21,10 +22,9 @@ export class HomeComponent implements OnInit {
   public usernameUrl: string = '';
   constructor(
     private homeService: HomeService,
-    public profileService: ProfileService
+    public profileService: ProfileService,
+    private notificationService: NotificationService
   ) {}
-
-  ngOnInit(): void {}
 
   public searchUsers(page?: number) {
     //when filter does not pass instead of dont do nothing, try to show a spinner laoding and then if not data match just show a meesage of no data to shown
@@ -52,30 +52,12 @@ export class HomeComponent implements OnInit {
           this.users$.next(users.items);
         });
     } else if (this.searchString.includes('flowww')) {
-      window.alert('Not allowed this parameter on search');
+      this.notificationService.getNotification(
+        `User not found, try again with other username`
+      );
+      this.users$.next([]);
+    } else if (this.searchString.length == 0) {
       this.users$.next([]);
     }
-  }
-  public openModal(url: string) {
-    this.usernameUrl = url;
-    this.open();
-  }
-
-  private open() {
-    const modal = document.querySelector('dialog');
-    modal?.showModal();
-    document.addEventListener('click', ({ target }) => {
-      if (target === modal) {
-        modal?.close();
-      }
-    });
-  }
-
-  public getNumberArray(length: number): number[] {
-    return new Array(length);
-  }
-
-  public isCurrentPageSelected(pageNumber: number) {
-    return pageNumber + 1 == this.currentPageNumber;
   }
 }

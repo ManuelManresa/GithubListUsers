@@ -1,0 +1,133 @@
+.glu-home-list-container {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 600px;
+
+  width: 100%;
+}
+.glu-home-table {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+.glu-home-table-head {
+  display: flex;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.glu-home-table-head-row {
+  display: grid;
+  border-radius: 14px;
+  width: 100%;
+  padding: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  color: white;
+  background-color: rgb(105, 181, 219);
+}
+.glu-home-user-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 100%;
+  list-style-type: none;
+}
+.glu-home-user-row {
+  background-color: white;
+  border-radius: 14px;
+  padding: 5px 20px;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+}
+.glu-home-user-row:nth-child(even) {
+  background-color: rgb(242, 253, 255);
+  transition: 0.5;
+}
+.glu-home-user-avatar img {
+  border-radius: 100%;
+}
+.glu-home-pagination {
+  display: flex;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+.glu-home-pagination-buttons {
+  display: flex;
+  width: fit-content;
+}
+.glu-home-pagination button {
+  padding: 10px 12px;
+  background-color: white;
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.glu-home-pagination button:hover {
+  background-color: rgb(105, 181, 219);
+  color: white;
+  transition-property: background-color, color;
+  transition: 0.5s;
+}
+.glu-home-pagination button:last-of-type {
+  border-radius: 0 100% 100% 0;
+}
+.glu-home-pagination button:first-of-type {
+  border-radius: 100% 0 0 100%;
+}
+.glu-home-pagination button.checked {
+  background-color: rgb(105, 181, 219);
+  color: white;
+}
+
+@media (max-width: 801px) {
+  .glu-home-user-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+.glu-home-user-row:hover {
+  cursor: pointer;
+  transform: translateY(-5px) translateX(5px);
+  box-shadow: -7px 6px 4px rgba(176, 176, 176, 0.6);
+  transition: 0.5s;
+}
+
+dialog {
+  padding: 50px;
+  border-radius: 5px;
+  border: 0;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  &[open],
+  &::backdrop {
+    animation: show 500ms ease;
+  }
+
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.glu-home-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+}

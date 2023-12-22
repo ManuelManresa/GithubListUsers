@@ -1,0 +1,97 @@
+<div class="glu-home-list-container">
+  <div class="glu-home-table">
+    <div class="glu-home-table-head">
+      <div class="glu-home-table-head-row">
+        <div>Avatar</div>
+        <div>Name</div>
+        <div>Followers</div>
+      </div>
+    </div>
+
+    <ul class="glu-home-user-list">
+      <li
+        class="glu-home-user-row"
+        *ngFor="let user of users$ | async"
+        (click)="openModal(user.login)"
+      >
+        <div class="glu-home-column glu-home-user-avatar" data-label="Avatar">
+          <img
+            src="{{ user.avatar_url }}"
+            alt="Avatar Url"
+            width="32"
+            height="32"
+          />
+        </div>
+        <div class="glu-home-column glu-home-user-name" data-label="Name">
+          {{ user.login }}
+        </div>
+        <div
+          class="glu-home-column glu-home-user-followers"
+          data-label="Followers"
+        >
+          <span><ng-icon name="octPersonFill"></ng-icon> </span>
+
+          {{ user.followers }}
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="glu-home-pagination">
+    <div class="glu-home-pagination-buttons">
+      <button (click)="searchUsers(0)">
+        <span>&#60;&#60;</span>
+      </button>
+      <button (click)="searchUsers(currentPageNumber - 1)">
+        <span>&#60;</span>
+      </button>
+      <button
+        (click)="nextPageGroup = nextPageGroup - 1"
+        *ngIf="
+          nextPageGroup > 1 || (currentPageNumber > 1 && nextPageGroup != 0)
+        "
+      >
+        <span>...</span>
+      </button>
+      <ng-container
+        *ngFor="let pages of getNumberArray(totalPageNumbers); let i = index"
+      >
+        <button
+          [ngClass]="{ checked: isCurrentPageSelected(i) }"
+          (click)="searchUsers(i + 1)"
+          *ngIf="
+            i + 1 >= currentPageNumber + 3 * (nextPageGroup - 1) &&
+            i + 1 < currentPageNumber + 3 * nextPageGroup
+          "
+        >
+          <span>
+            {{ i + 1 }}
+          </span>
+        </button>
+
+        <button
+          (click)="nextPageGroup = nextPageGroup + 1"
+          *ngIf="i + 1 == currentPageNumber + 3 * nextPageGroup"
+        >
+          <span>...</span>
+        </button>
+      </ng-container>
+      <button (click)="searchUsers(currentPageNumber + 1)">
+        <span>&#62;</span>
+      </button>
+
+      <button
+        (click)="
+          searchUsers(totalPageNumbers); nextPageGroup = totalPageNumbers / 3
+        "
+      >
+        <span>&#62;&#62;</span>
+      </button>
+    </div>
+    <!-- pagination -->
+  </div>
+</div>
+<span class="glu-home-modal">
+  <dialog class="glu-dialog">
+    <profile [usernameURL]="(usernameUrl | split : ',')[0]"></profile>
+  </dialog>
+</span>

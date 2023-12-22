@@ -52,10 +52,6 @@ export class ProfileComponent implements OnInit, OnChanges {
     }
   }
 
-  public momentFormatter(date: string | undefined, format: string) {
-    return moment(date).format(format);
-  }
-
   public showTab(tab: 'repos' | 'commits'): void {
     this.activeTab = tab;
 

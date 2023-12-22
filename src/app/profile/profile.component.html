@@ -1,30 +1,33 @@
-<div *ngIf="user$ | async as user" class="modal_profile_container">
-  <div class="modal_profile_header">
-    <div class="modal_banner"></div>
+<div *ngIf="user$ | async as user" class="modal-profile-container">
+  <div class="modal-profile-header">
+    <div class="modal-banner"></div>
 
     <img
       src="{{ user.avatar_url }}"
-      class="modal_user_image"
+      class="modal-user-image"
       alt="Avatar Url"
       width="128"
       height="128"
     />
-    <div class="modal_profile_name_container">
-      <h2 class="modal_profile_header_user_name">{{ user.login }}</h2>
-      <h3 class="modal_profile_header_name">{{ user.name }}</h3>
+    <div class="modal-profile-name-container">
+      <h2 class="modal-profile-header-user-name">{{ user.login }}</h2>
+      <h3 class="modal-profile-header-name">{{ user.name }}</h3>
     </div>
 
-    <div class="modal_companies">
+    <div class="modal-companies">
       <div *ngFor="let company of user.company | split : ','">
+        <span><ng-icon name="bootstrapBuilding"></ng-icon> </span>
         {{ company }}
       </div>
     </div>
 
-    <div class="modal_location">
+    <div class="modal-location">
+      <span><ng-icon name="octLocation"></ng-icon> </span>
+
       {{ user.location }}
     </div>
 
-    <div class="modal_followers">
+    <div class="modal-followers">
       <div>
         followers:
         <span>
@@ -41,16 +44,16 @@
     </div>
   </div>
 
-  <div class="modal_tabs_container">
+  <div class="modal-tabs-container">
     <div
-      class="modal_tab"
+      class="modal-tab"
       [class.active]="activeTab === 'repos'"
       (click)="showTab('repos')"
     >
       Repositories
     </div>
     <div
-      class="modal_tab"
+      class="modal-tab"
       [class.active]="activeTab === 'commits'"
       (click)="showTab('commits')"
     >
@@ -58,31 +61,30 @@
     </div>
   </div>
 
-  <div class="modal_tab-content">
-    <div *ngIf="activeTab === 'repos'" class="modal_repos_content">
-      <app-spinner *ngIf="!(userRepos$ | async)" class="loader"> </app-spinner>
-      <div *ngFor="let repo of userRepos$ | async" class="modal_repos_item">
+  <div class="modal-tab-content">
+    <div *ngIf="activeTab === 'repos'" class="modal-repos-content">
+      <spinner *ngIf="!(userRepos$ | async)" class="loader"> </spinner>
+      <div *ngFor="let repo of userRepos$ | async" class="modal-repos-item">
         <span>{{ repo.name }}</span>
-        <a target="_blank" [href]="repo.html_url" class="modal_view_more_button"
+        <a target="-blank" [href]="repo.html_url" class="modal-view-more-button"
           >View more</a
         >
       </div>
     </div>
 
-    <div *ngIf="activeTab === 'commits'" class="modal_commits-content">
-      <app-spinner *ngIf="!(userGeneralCommits$ | async)" class="loader">
-      </app-spinner>
+    <div *ngIf="activeTab === 'commits'" class="modal-commits-content">
+      <spinner *ngIf="!(userGeneralCommits$ | async)" class="loader"> </spinner>
 
       <div
         *ngFor="let commit of userGeneralCommits$ | async"
-        class="modal_commit_item"
+        class="modal-commit-item"
       >
-        <span class="modal_commit_sha">
+        <span class="modal-commit-sha">
           <b>SHA: </b>
-          <a target="_blank" [href]="commit.html_url">{{ commit.sha }} </a>
+          <a target="-blank" [href]="commit.html_url">{{ commit.sha }} </a>
         </span>
-        <div class="modal_commit_date">
-          {{ momentFormatter(commit.commit.author.date, "DD-MM-YYYY") }}
+        <div class="modal-commit-date">
+          {{ commit.commit.author.date | formatDate : "DD-MM-YYYY" }}
         </div>
       </div>
     </div>

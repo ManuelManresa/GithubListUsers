@@ -1,20 +1,22 @@
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { enviroment } from '../enviroments/enviroment';
+import { NotificationService } from '../app/notification-pop-up/notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthTokenInterceptor implements HttpInterceptor {
+export class HttpRequestInterceptor implements HttpInterceptor {
   private TOKEN = enviroment.access_token;
   private URL_API: string = enviroment.api_url;
-  constructor() {}
+  constructor(private notificationService: NotificationService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -28,6 +30,20 @@ export class AuthTokenInterceptor implements HttpInterceptor {
         : {},
     });
 
-    return next.handle(modifiedRequest);
+    return next.handle(modifiedRequest).pipe(
+      catchError((err: HttpErrorResponse) => {
+        if (err) {
+          switch (err.status) {
+            default:
+              this.notificationService.getNotification(
+                `Error Code: ${err.status}, ${err.message}`
+              );
+
+              break;
+          }
+        }
+        throw err;
+      })
+    );
   }
 }

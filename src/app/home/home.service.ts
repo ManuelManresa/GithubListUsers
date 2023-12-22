@@ -4,6 +4,7 @@ import { Observable, concat, exhaustMap, map, take } from 'rxjs';
 import { User } from '../../interfaces/user';
 import { FindUsers } from '../../interfaces/responsesInterfaces';
 import { ProfileService } from '../profile/profile.service';
+import { NotificationService } from '../notification-pop-up/notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,8 @@ import { ProfileService } from '../profile/profile.service';
 export class HomeService {
   constructor(
     private http: HttpClient,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private notificationService: NotificationService
   ) {}
 
   findUsers(username: string, pageNumber: number = 0): Observable<FindUsers> {
@@ -29,9 +31,9 @@ export class HomeService {
       .pipe(
         map((data) => {
           if (data.items.length === 0) {
-            // TODO: change for pop up notification
-            window.alert('No data found');
-
+            this.notificationService.getNotification(
+              `User not found, try again with other username`
+            );
             throw new Error('No data found');
           }
           result.incomplete_results = data.incomplete_results;
