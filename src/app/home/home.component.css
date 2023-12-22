@@ -20,7 +20,6 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  /* From https://css.glass */
 }
 .glu-home__search {
   display: flex;

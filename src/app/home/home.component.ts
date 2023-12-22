@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../interfaces/user';
 import { ProfileService } from '../profile/profile.service';
 import { Router } from '@angular/router';
-import { FindUsers } from '../../interfaces/responsesInterfaces';
 
 @Component({
   selector: 'home',
@@ -17,7 +16,7 @@ export class HomeComponent implements OnInit {
   >(null);
   public searchString: string = '';
   public loadingData: boolean = false;
-  public currentPageNumber: number = 1;
+  public currentPageNumber: number = 0;
   public totalPageNumbers: number = 1;
   public nextPageGroup: number = 1;
   constructor(
@@ -50,7 +49,7 @@ export class HomeComponent implements OnInit {
           this.totalPageNumbers = page
             ? this.totalPageNumbers
             : Math.ceil(users.total_count / 10);
-          this.currentPageNumber = page ? this.currentPageNumber : 1;
+          this.currentPageNumber = page ? page : 1;
           this.users$.next(users.items);
         });
     } else if (this.searchString.includes('flowww')) {
@@ -69,5 +68,9 @@ export class HomeComponent implements OnInit {
 
   public getNumberArray(length: number): number[] {
     return new Array(length);
+  }
+
+  public isCurrentPageSelected(pageNumber: number) {
+    return pageNumber + 1 == this.currentPageNumber;
   }
 }

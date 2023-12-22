@@ -68,7 +68,9 @@
           </button>
           <button
             (click)="nextPageGroup = nextPageGroup - 1"
-            *ngIf="nextPageGroup > 1"
+            *ngIf="
+              nextPageGroup > 1 || (currentPageNumber > 1 && nextPageGroup != 0)
+            "
           >
             <span>...</span>
           </button>
@@ -79,11 +81,11 @@
             "
           >
             <button
-              [ngClass]="{ checked: currentPageNumber === i + 1 }"
+              [ngClass]="{ checked: isCurrentPageSelected(i) }"
               (click)="searchUsers(i + 1)"
               *ngIf="
-                i + 1 >= currentPageNumber + 5 * (nextPageGroup - 1) &&
-                i + 1 < currentPageNumber + 5 * nextPageGroup
+                i + 1 >= currentPageNumber + 3 * (nextPageGroup - 1) &&
+                i + 1 < currentPageNumber + 3 * nextPageGroup
               "
             >
               <span>
@@ -93,7 +95,7 @@
 
             <button
               (click)="nextPageGroup = nextPageGroup + 1"
-              *ngIf="i + 1 == currentPageNumber + 5 * nextPageGroup"
+              *ngIf="i + 1 == currentPageNumber + 3 * nextPageGroup"
             >
               <span>...</span>
             </button>
@@ -105,7 +107,7 @@
           <button
             (click)="
               searchUsers(totalPageNumbers);
-              nextPageGroup = totalPageNumbers / 5
+              nextPageGroup = totalPageNumbers / 3
             "
           >
             <span>&#62;&#62;</span>

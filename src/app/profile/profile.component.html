@@ -1,71 +1,72 @@
-<div *ngIf="user$ | async as user">
+<div *ngIf="mockmojombo as user" class="glu_profile">
   <header>
     <img
       src="{{ user.avatar_url }}"
+      class="glu_user_image"
       alt="Avatar Url"
       width="128"
       height="128"
     />
-    <article>
+    <article class="glu_profile_card">
       <!-- Profile -->
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_user">
         User:
         <span>
           {{ user.login }}
         </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_name">
         Name:
         <span>
           {{ user.name }}
         </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_location">
         Location:
         <span>
           {{ user.location }}
         </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_company">
         Company:
         <span>
           {{ user.company }}
         </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_creation_date">
         Creation Date:
         <span>
           {{ momentFormatter(user.created_at, "YYYY-MM-DD") }}
         </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_bio">
         <span>
           {{ user.bio }}
         </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_followers">
         Followers:
         <span>
           {{ user.followers }}
         </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_following">
         Following:
         <span>
           {{ user.following }}
         </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_blog">
         Blog:
         <span>
           {{ user.blog }}
         </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_twitter">
         Twitter:
         <span> &#64;{{ user.twitter_username }} </span>
       </section>
-      <section>
+      <section class="glu_profile_card_item glu_profile_card_type">
         Type:
         <span>
           {{ user.type }}
@@ -74,13 +75,9 @@
     </article>
   </header>
   <!-- repos section -->
-  <div *ngIf="userRepos$ | async as repos">
-    {{ repos | json }}
-  </div>
+  <div *ngIf="mockReposMojombo as repos"></div>
 
   <!-- commits section for modal -->
 
-  <div *ngIf="userGeneralCommits$ | async as commits">
-    {{ commits | json }}
-  </div>
+  <div *ngIf="mockCommitsmojombo as commits"></div>
 </div>

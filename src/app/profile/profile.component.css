@@ -1,0 +1,34 @@
+.glu_profile {
+  background: linear-gradient(0deg, #6466d77f 0%, #13caa281 100%);
+
+  font-family: sans-serif;
+}
+.glu_user_image {
+  border-radius: 50%;
+  margin: 10px 10px;
+}
+
+.glu_profile_card {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  border: 1px solid #ccc;
+  padding: 10px;
+  max-width: 600px; /* Adjust the maximum width as needed */
+  background-color: #fff; /* White background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+.glu_profile_card img {
+  width: 80px; /* Adjust the image width as needed */
+  height: 80px; /* Adjust the image height as needed */
+  border-radius: 50%; /* Make the image round */
+  margin-right: 20px; /* Add some spacing between the image and the card */
+}
+.glu_profile_card_item {
+  display: flex;
+  flex-direction: column;
+}
+
+.glu_profile_card_item span {
+  margin-top: 5px; /* Ajusta el espacio entre la etiqueta y el valor */
+}
