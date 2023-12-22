@@ -3,7 +3,6 @@ import { HomeService } from './home.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../interfaces/user';
 import { ProfileService } from '../profile/profile.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'home',
@@ -19,10 +18,10 @@ export class HomeComponent implements OnInit {
   public currentPageNumber: number = 0;
   public totalPageNumbers: number = 1;
   public nextPageGroup: number = 1;
+  public usernameUrl: string = '';
   constructor(
     private homeService: HomeService,
-    public profileService: ProfileService,
-    private router: Router
+    public profileService: ProfileService
   ) {}
 
   ngOnInit(): void {}
@@ -57,13 +56,19 @@ export class HomeComponent implements OnInit {
       this.users$.next([]);
     }
   }
-  public navigateToProfile(url: string) {
-    const newUrl = this.router.serializeUrl(
-      this.router.createUrlTree(['/profile'], {
-        queryParams: { user: url },
-      })
-    );
-    window.open(newUrl, '_blank');
+  public openModal(url: string) {
+    this.usernameUrl = url;
+    this.open();
+  }
+
+  private open() {
+    const modal = document.querySelector('dialog');
+    modal?.showModal();
+    document.addEventListener('click', ({ target }) => {
+      if (target === modal) {
+        modal?.close();
+      }
+    });
   }
 
   public getNumberArray(length: number): number[] {

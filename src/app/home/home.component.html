@@ -33,7 +33,7 @@
           <li
             class="glu-home__user-row"
             *ngFor="let user of users$ | async"
-            (click)="navigateToProfile(user.login)"
+            (click)="openModal(user.login)"
           >
             <div
               class="glu-home__column glu-home__user-avatar"
@@ -118,3 +118,9 @@
     </div>
   </div>
 </div>
+
+<span class="glu-home-modal">
+  <dialog class=".glu-dialog">
+    <profile [usernameURL]="(usernameUrl | split : ',')[0]"></profile>
+  </dialog>
+</span>

@@ -1,83 +1,90 @@
-<div *ngIf="mockmojombo as user" class="glu_profile">
-  <header>
+<div *ngIf="user$ | async as user" class="modal_profile_container">
+  <div class="modal_profile_header">
+    <div class="modal_banner"></div>
+
     <img
       src="{{ user.avatar_url }}"
-      class="glu_user_image"
+      class="modal_user_image"
       alt="Avatar Url"
       width="128"
       height="128"
     />
-    <article class="glu_profile_card">
-      <!-- Profile -->
-      <section class="glu_profile_card_item glu_profile_card_user">
-        User:
-        <span>
-          {{ user.login }}
-        </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_name">
-        Name:
-        <span>
-          {{ user.name }}
-        </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_location">
-        Location:
-        <span>
-          {{ user.location }}
-        </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_company">
-        Company:
-        <span>
-          {{ user.company }}
-        </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_creation_date">
-        Creation Date:
-        <span>
-          {{ momentFormatter(user.created_at, "YYYY-MM-DD") }}
-        </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_bio">
-        <span>
-          {{ user.bio }}
-        </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_followers">
-        Followers:
+    <div class="modal_profile_name_container">
+      <h2 class="modal_profile_header_user_name">{{ user.login }}</h2>
+      <h3 class="modal_profile_header_name">{{ user.name }}</h3>
+    </div>
+
+    <div class="modal_companies">
+      <div *ngFor="let company of user.company | split : ','">
+        {{ company }}
+      </div>
+    </div>
+
+    <div class="modal_location">
+      {{ user.location }}
+    </div>
+
+    <div class="modal_followers">
+      <div>
+        followers:
         <span>
           {{ user.followers }}
         </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_following">
-        Following:
+      </div>
+
+      <div>
+        followings:
         <span>
           {{ user.following }}
         </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_blog">
-        Blog:
-        <span>
-          {{ user.blog }}
-        </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_twitter">
-        Twitter:
-        <span> &#64;{{ user.twitter_username }} </span>
-      </section>
-      <section class="glu_profile_card_item glu_profile_card_type">
-        Type:
-        <span>
-          {{ user.type }}
-        </span>
-      </section>
-    </article>
-  </header>
-  <!-- repos section -->
-  <div *ngIf="mockReposMojombo as repos"></div>
+      </div>
+    </div>
+  </div>
 
-  <!-- commits section for modal -->
+  <div class="modal_tabs_container">
+    <div
+      class="modal_tab"
+      [class.active]="activeTab === 'repos'"
+      (click)="showTab('repos')"
+    >
+      Repositories
+    </div>
+    <div
+      class="modal_tab"
+      [class.active]="activeTab === 'commits'"
+      (click)="showTab('commits')"
+    >
+      Commits
+    </div>
+  </div>
 
-  <div *ngIf="mockCommitsmojombo as commits"></div>
+  <div class="modal_tab-content">
+    <div *ngIf="activeTab === 'repos'" class="modal_repos_content">
+      <app-spinner *ngIf="!(userRepos$ | async)" class="loader"> </app-spinner>
+      <div *ngFor="let repo of userRepos$ | async" class="modal_repos_item">
+        <span>{{ repo.name }}</span>
+        <a target="_blank" [href]="repo.html_url" class="modal_view_more_button"
+          >View more</a
+        >
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'commits'" class="modal_commits-content">
+      <app-spinner *ngIf="!(userGeneralCommits$ | async)" class="loader">
+      </app-spinner>
+
+      <div
+        *ngFor="let commit of userGeneralCommits$ | async"
+        class="modal_commit_item"
+      >
+        <span class="modal_commit_sha">
+          <b>SHA: </b>
+          <a target="_blank" [href]="commit.html_url">{{ commit.sha }} </a>
+        </span>
+        <div class="modal_commit_date">
+          {{ momentFormatter(commit.commit.author.date, "DD-MM-YYYY") }}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

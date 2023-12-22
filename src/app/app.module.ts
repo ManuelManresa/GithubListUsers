@@ -7,7 +7,6 @@ import {
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProfileComponent } from './profile/profile.component';
-import { DashboardModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthTokenInterceptor } from '../interceptors/tokenBearer.interceptor';
@@ -15,6 +14,10 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { NgIconsModule } from '@ng-icons/core';
+import { bootstrapTwitter, bootstrapBuilding } from '@ng-icons/bootstrap-icons';
+import { octPersonFill } from '@ng-icons/octicons';
+import { SplitPipe } from './split.pipe';
 
 @NgModule({
   declarations: [
@@ -22,15 +25,20 @@ import { SpinnerComponent } from './spinner/spinner.component';
     HomeComponent,
     ProfileComponent,
     SpinnerComponent,
+    SplitPipe,
   ],
   imports: [
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    DashboardModule,
     ProfileModule,
     HttpClientModule,
     FormsModule,
+    NgIconsModule.withIcons({
+      bootstrapTwitter,
+      octPersonFill,
+      bootstrapBuilding,
+    }),
   ],
   providers: [
     provideClientHydration(),
