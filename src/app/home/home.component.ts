@@ -28,11 +28,7 @@ export class HomeComponent {
 
   public searchUsers(page?: number) {
     //when filter does not pass instead of dont do nothing, try to show a spinner laoding and then if not data match just show a meesage of no data to shown
-    if (
-      this.searchString.length > 4 &&
-      !this.searchString.includes('flowww') &&
-      page != this.currentPageNumber
-    ) {
+    if (this.searchString.length > 4 && page != this.currentPageNumber) {
       this.loadingData = true;
 
       this.homeService
@@ -51,11 +47,6 @@ export class HomeComponent {
           this.currentPageNumber = page ? page : 1;
           this.users$.next(users.items);
         });
-    } else if (this.searchString.includes('flowww')) {
-      this.notificationService.getNotification(
-        `User not found, try again with other username`
-      );
-      this.users$.next([]);
     } else if (this.searchString.length == 0) {
       this.users$.next([]);
     }
